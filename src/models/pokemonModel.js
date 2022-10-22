@@ -23,16 +23,13 @@ const pokemonSchema = new moongose.Schema({
         required: true
     },
     evolution: {
-        type: moongose.Schema.Types.ObjectId,
-        ref: 'Pokemon'
+        type: String,
     },
     image: {
         type: String,
         required: true
     },
-    stats: [{
-        type: Object,
-    }]
+    stats: Object,
 });
 
 module.exports = moongose.model('Pokemon', pokemonSchema);

@@ -18,12 +18,16 @@ authController.login = async (req, res, next) => {
         const token = generateAccessToken({ username: req.body.username });
         
         res.json({
-            message: 'Success',
-            data: '',
+            message: 'Bienvenido',
+            data: user,
             token
         });
     } catch (error) {
-        next(error);
+        // next(error);
+        res.status(401).json({
+            message: error.message,
+            data: ''
+        });
     }
 };
 

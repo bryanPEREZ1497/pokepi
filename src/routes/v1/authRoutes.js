@@ -1,8 +1,8 @@
 const Router = require('express').Router;
 const router = Router();
 
-const AuthController = require('../controllers/authController');
-const checkUsername = require('../middlewares/checkUsername');
+const AuthController = require('../../controllers/authController');
+const checkUsername = require('../../middlewares/checkUsername');
 
 
 router.post('/login', AuthController.login);

@@ -1,15 +1,13 @@
 const express = require('express');
 const app = express();
-const interceptor = require('./middlewares/interceptor');
-const errorHandler = require('./middlewares/ErrorHandler');
+const interceptor = require('./src/middlewares/interceptor');
+const errorHandler = require('./src/middlewares/ErrorHandler');
 var cors = require('cors')
 require('dotenv').config();
-require('./database/conecction');
+require('./src/database/conecction');
 
-const subscribersRouter = require('./routes/subscriberRoutes');
-const booksRouter = require('./routes/bookRoutes');
-const pokemonRouter = require('./routes/pokemonRoutes');
-const authRouter = require('./routes/authRoutes');
+const pokemonRouter = require('./src/routes/v1/pokemonRoutes');
+const authRouter = require('./src/routes/v1/authRoutes');
 
 // const api = process.env.API_URL;
 const api = 'api';
@@ -20,8 +18,6 @@ app.use(express.json());
 app.use(interceptor);
 
 app.use(`/${api}/${version}/auth`, authRouter);
-app.use(`/${api}/${version}/subscribers`, subscribersRouter);
-app.use(`/${api}/${version}/books`, booksRouter);
 app.use(`/${api}/${version}/pokemons`, pokemonRouter);
 
 app.use(errorHandler);
