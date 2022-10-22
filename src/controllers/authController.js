@@ -50,7 +50,7 @@ authController.register = async (req, res) => {
         const token = generateAccessToken({ username: req.body.username });
 
         res.json({
-            message: 'register',
+            message: 'Success',
             data: user,
             token
         });
