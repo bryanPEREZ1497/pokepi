@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const interceptor = require('./src/middlewares/interceptor');
-const errorHandler = require('./src/middlewares/ErrorHandler');
+const errorHandler = require('./src/middlewares/errorHandler');
 var cors = require('cors')
 require('dotenv').config();
 require('./src/database/conecction');
