@@ -3,7 +3,7 @@ const app = express();
 const interceptor = require('./src/middlewares/interceptor');
 const errorHandler = require('./src/middlewares/errorHandler');
 var cors = require('cors')
-require('dotenv').config();
+// require('dotenv').config();
 require('./src/database/conecction');
 
 const pokemonRouter = require('./src/routes/v1/pokemonRoutes');
