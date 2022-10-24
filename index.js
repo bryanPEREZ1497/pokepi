@@ -1,18 +1,16 @@
 const express = require('express');
 const app = express();
-const errorHandler = require('./src/middlewares/errorHandler');
 var cors = require('cors')
+
+const errorHandler = require('./src/middlewares/errorHandler');
+require('./src/database/conecction');
+const pokemonRouter = require('./src/routes/v1/pokemonRoutes');
+const authRouter = require('./src/routes/v1/authRoutes');
+const V1Docs = require('./src/routes/v1/swagger');
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
-
-require('./src/database/conecction');
-
-const pokemonRouter = require('./src/routes/v1/pokemonRoutes');
-const authRouter = require('./src/routes/v1/authRoutes');
-
-const V1Docs = require('./src/routes/v1/swagger');
 
 const api = 'api';
 const version = 'v1';
