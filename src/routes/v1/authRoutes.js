@@ -7,7 +7,7 @@ const checkUsername = require('../../middlewares/checkUsername');
 /**
  * @openapi
  * /api/v1/auth/login:
- *   get:
+ *   post:
  *     tags:
  *       - Auth
  *     requestBody:
@@ -70,7 +70,7 @@ router.get('/logout', AuthController.logout);
 /**
  * @openapi
  * /api/v1/auth/register:
- *   get:
+ *   post:
  *     tags:
  *       - Auth
  *     requestBody:

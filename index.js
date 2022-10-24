@@ -25,6 +25,8 @@ app.use(express.static('public'));
 app.use(`/${api}/${version}/auth`, authRouter);
 app.use(`/${api}/${version}/pokemons`, pokemonRouter);
 
+V1Docs(app, process.env.PORT);
+
 app.use('*', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
@@ -33,6 +35,5 @@ app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
-    V1Docs(app, process.env.PORT);
 });
 

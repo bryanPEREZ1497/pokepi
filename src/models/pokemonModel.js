@@ -17,8 +17,9 @@ const moongose = require('mongoose');
  *           type: string
  *           example: For Time
  *         type:
- *           type: string
- *           example: Fire
+ *           type: array
+ *           items:
+ *            type: string
  *         height:
  *           type: number
  *           example: 1.8
@@ -45,8 +46,7 @@ const pokemonSchema = new moongose.Schema({
         required: false
     },
     type: {
-        type: String,
-        required: true
+        type: [String],
     },
     height: {
         type: Number,

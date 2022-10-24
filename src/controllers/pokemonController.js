@@ -15,10 +15,11 @@ pokemonController.index = async function (req, res, next) {
 
 pokemonController.show = async function (req, res, next) {
     try {
-        const subscriber = await PokemonModel.findOne({ _id: req.params.id });
+        const pokemon = await PokemonModel
+            .findOne({ _id: req.params.id });
         res.status(201).json({
             message: 'Success',
-            data: subscriber
+            data: pokemon
         })
 
     } catch (error) {
