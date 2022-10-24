@@ -49,7 +49,7 @@ authController.register = async (req, res) => {
         const token = generateAccessToken({ username: req.body.username });
 
         res.json({
-            message: 'Success',
+            message: 'Registrado',
             data: user,
             token
         });
