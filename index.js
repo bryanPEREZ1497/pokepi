@@ -20,8 +20,14 @@ const version = 'v1';
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static('public'));
+
 app.use(`/${api}/${version}/auth`, authRouter);
 app.use(`/${api}/${version}/pokemons`, pokemonRouter);
+
+app.use('*', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 app.use(errorHandler);
 
