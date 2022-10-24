@@ -1,5 +1,8 @@
 const moongose = require('mongoose');
-// require('dotenv').config();
+
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 moongose.connect(process.env.DATABASE_URL,
     { useNewUrlParser: true, useUnifiedTopology: true });

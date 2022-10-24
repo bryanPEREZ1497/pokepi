@@ -16,9 +16,6 @@ pokemonController.index = async function (req, res, next) {
 pokemonController.show = async function (req, res, next) {
     try {
         const subscriber = await PokemonModel.findOne({ _id: req.params.id });
-        // if (subscriber == null) {
-        //     return res.status(404).json({ message: 'Cannot find subscriber' });
-        // }
         res.status(201).json({
             message: 'Success',
             data: subscriber

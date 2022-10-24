@@ -16,14 +16,13 @@ authController.login = async (req, res, next) => {
             throw new Error('Contraseña incorrecta');
         }
         const token = generateAccessToken({ username: req.body.username });
-        
+
         res.json({
             message: 'Bienvenido',
             data: user,
             token
         });
     } catch (error) {
-        // next(error);
         res.status(401).json({
             message: error.message,
             data: ''
@@ -33,7 +32,7 @@ authController.login = async (req, res, next) => {
 
 authController.logout = async (req, res) => {
 
-    res.json({ message: 'logout' });
+    res.json({ message: 'logout', data: '' });
 
 };
 
@@ -56,7 +55,10 @@ authController.register = async (req, res) => {
         });
 
     } catch (error) {
-
+        res.status(400).json({
+            message: error.message,
+            data: ''
+        });
     }
 }
 
