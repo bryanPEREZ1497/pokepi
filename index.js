@@ -15,13 +15,11 @@ const authRouter = require('./src/routes/v1/authRoutes');
 
 const V1Docs = require('./src/routes/v1/swagger');
 
-// const api = process.env.API_URL;
 const api = 'api';
 const version = 'v1';
 
 app.use(cors());
 app.use(express.json());
-app.use(interceptor);
 
 app.use(`/${api}/${version}/auth`, authRouter);
 app.use(`/${api}/${version}/pokemons`, pokemonRouter);

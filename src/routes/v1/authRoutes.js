@@ -3,14 +3,14 @@ const router = Router();
 
 const AuthController = require('../../controllers/authController');
 const checkUsername = require('../../middlewares/checkUsername');
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im90aGVyIiwiaWF0IjoxNjY2NDY3MTA3LCJleHAiOjE2NjY0Njg5MDd9.6qpdWbx9sZY0E-kM4Me-fntxiNKA0b51qPKp_KdVoAI
+
 /**
  * @openapi
  * /api/v1/auth/login:
- *  post:
- *   tags:
- *    - Auth
- *   requestBody:
+ *   get:
+ *     tags:
+ *       - Auth
+ *     requestBody:
  *      content:
  *          application/json:
  *              schema:
@@ -22,22 +22,24 @@ const checkUsername = require('../../middlewares/checkUsername');
  *                          password:
  *                              type: string
  *                              example: test
- *   responses:
- *      200:
- *          description: OK
- *          content:
- *              application/json:
- *                  schema:
- *                  type: object
- *                  properties:
- *                      token:
- *                           type: string
- *                           example: OK
- *                      data:
- *                           type: string
- *                      message:
- *                          type: string
- *                          example: OK
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   example: sdsdfsdfadf
+ *                 data:
+ *                   type: array 
+ *                   example: ''
+ *                 message:
+ *                   type: string 
+ *                   example: Bienvenido
+ *                   
  */
 router.post('/login', AuthController.login);
 
@@ -68,10 +70,10 @@ router.get('/logout', AuthController.logout);
 /**
  * @openapi
  * /api/v1/auth/register:
- *  post:
- *   tags:
- *    - Auth
- *   requestBody:
+ *   get:
+ *     tags:
+ *       - Auth
+ *     requestBody:
  *      content:
  *          application/json:
  *              schema:
@@ -83,22 +85,24 @@ router.get('/logout', AuthController.logout);
  *                          password:
  *                              type: string
  *                              example: test
- *   responses:
- *      200:
- *          description: OK
- *          content:
- *              application/json:
- *                  schema:
- *                  type: object
- *                  properties:
- *                      token:
- *                           type: string
- *                           example: OK
- *                      data:
- *                           type: string
- *                      message:
- *                          type: string
- *                          example: OK
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   example: sdsdfsdfadf
+ *                 data:
+ *                   type: array 
+ *                   example: ''
+ *                 message:
+ *                   type: string 
+ *                   example: Success
+ *                   
  */
 router.post('/register', checkUsername, AuthController.register);
 

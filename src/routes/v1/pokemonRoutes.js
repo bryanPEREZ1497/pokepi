@@ -22,7 +22,7 @@ router.use(authenticateToken);
  *      - token: []
  *     responses:
  *       200:
- *         description: OK
+ *         description: Success
  *         content:
  *           application/json:
  *             schema:
@@ -61,7 +61,7 @@ router.get('/', pokemonController.index);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: OK
+ *                   example: Success
  *                 data:
  *                   $ref: "#/components/schemas/Pokemon"
  *       401:
