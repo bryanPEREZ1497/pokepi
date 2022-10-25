@@ -1,4 +1,4 @@
-const PokemonModel = require('../models/pokemonModel');
+const PokemonService = require('../services/pokemonService');
 
 const pokemonController = {};
 
@@ -6,7 +6,7 @@ pokemonController.index = async function (req, res, next) {
     try {
         res.json({
             message: 'Success',
-            data: await PokemonModel.find({ name: new RegExp(req.query.search, 'i') })
+            data: await PokemonService.index(req.query.search)
         });
     } catch (error) {
         next(error);
@@ -15,11 +15,9 @@ pokemonController.index = async function (req, res, next) {
 
 pokemonController.show = async function (req, res, next) {
     try {
-        const pokemon = await PokemonModel
-            .findOne({ _id: req.params.id });
         res.status(201).json({
             message: 'Success',
-            data: pokemon
+            data: await PokemonService.show('_id', req.params.id)
         })
 
     } catch (error) {

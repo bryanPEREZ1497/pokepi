@@ -2,6 +2,7 @@ const generateAccessToken = require("../middlewares/generateAccessToken");
 const UserModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
+const UserService = require("../services/userService");
 const saltRounds = 10;
 
 const authController = {}
@@ -9,10 +10,10 @@ const authController = {}
 authController.login = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ data: errors.array(), message: 'Error en la validación de campos'  });
+        return res.status(400).json({ data: errors.array(), message: 'Error en la validación de campos' });
     }
     try {
-        const user = await UserModel.findOne({ username: req.body.username });
+        const user = await UserService.show('_id', '63542f6614a61fa688916dd3');
         if (!user) {
             throw new Error('Usuario no existe');
         }
@@ -42,16 +43,17 @@ authController.logout = async (req, res) => {
 };
 
 authController.register = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ data: errors.array(), message: 'Error en la validación de campos' });
+    }
     try {
 
         const passwordHashed = await bcrypt.hash(req.body.password, saltRounds)
 
-        const user = await new UserModel({
-            username: req.body.username,
-            password: passwordHashed
-        }).save();
+        const user = await UserService.store({ username: req.body.username, password: passwordHashed });
 
-        const token = generateAccessToken({ username: req.body.username });
+        const token = generateAccessToken({ username: user.username });
 
         res.json({
             message: 'Registrado',
