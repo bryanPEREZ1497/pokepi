@@ -13,7 +13,7 @@ authController.login = async (req, res, next) => {
         return res.status(400).json({ data: errors.array(), message: 'Error en la validación de campos' });
     }
     try {
-        const user = await UserService.show('_id', '63542f6614a61fa688916dd3');
+        const user = await UserService.show('username', req.body.username);
         if (!user) {
             throw new Error('Usuario no existe');
         }
