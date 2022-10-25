@@ -3,6 +3,8 @@ const router = Router();
 
 const AuthController = require('../../controllers/authController');
 const checkUsername = require('../../middlewares/checkUsername');
+const LoginRequestValidator = require('../../RequestValidators/Auth/LoginRequestValidator');
+const RegisterRequestValidator = require('../../RequestValidators/Auth/RegisterRequestValidator');
 
 /**
  * @openapi
@@ -41,7 +43,9 @@ const checkUsername = require('../../middlewares/checkUsername');
  *                   example: Bienvenido
  *                   
  */
-router.post('/login', AuthController.login);
+router.post('/login',
+    LoginRequestValidator(),
+    AuthController.login);
 
 /**
  * @openapi
@@ -104,6 +108,9 @@ router.get('/logout', AuthController.logout);
  *                   example: Success
  *                   
  */
-router.post('/register', checkUsername, AuthController.register);
+router.post('/register',
+    RegisterRequestValidator(),
+    checkUsername,
+    AuthController.register);
 
 module.exports = router;

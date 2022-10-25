@@ -1,11 +1,16 @@
 const generateAccessToken = require("../middlewares/generateAccessToken");
 const UserModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
 const saltRounds = 10;
 
 const authController = {}
 
 authController.login = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ data: errors.array(), message: 'Error en la validación de campos'  });
+    }
     try {
         const user = await UserModel.findOne({ username: req.body.username });
         if (!user) {
