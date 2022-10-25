@@ -35,6 +35,10 @@ const userSchema = new moongose.Schema({
         byId(id) {
             return this.where({ _id: id })
         },
+    },
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
     }
 });
 
@@ -44,4 +48,5 @@ userSchema.set('toJSON', {
         delete returnedObject.password;
     }
 });
+
 module.exports = moongose.model('User', userSchema);
