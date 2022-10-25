@@ -30,7 +30,7 @@ const userSchema = new moongose.Schema({
 }, {
     query: {
         byUsername(username) {
-            return this.where({ username: new RegExp(usernamename, 'i') })
+            return this.where({ username: new RegExp(username, 'i') })
         },
         byId(id) {
             return this.where({ _id: id })
