@@ -29,4 +29,10 @@ const userSchema = new moongose.Schema({
     }
 });
 
+userSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id;
+        delete returnedObject.password;
+    }
+});
 module.exports = moongose.model('User', userSchema);
