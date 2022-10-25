@@ -27,6 +27,15 @@ const userSchema = new moongose.Schema({
         type: String,
         required: true
     }
+}, {
+    query: {
+        byUsername(username) {
+            return this.where({ username: new RegExp(usernamename, 'i') })
+        },
+        byId(id) {
+            return this.where({ _id: id })
+        },
+    }
 });
 
 userSchema.set('toJSON', {
