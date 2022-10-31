@@ -18,4 +18,21 @@ pokemonService.show = async function (attribute, value) {
     }
 }
 
+pokemonService.getUser = async function (pokemonId) {
+    try {
+        return await PokemonModel.findById(pokemonId)
+            .populate('user').select('name user');
+    } catch (error) {
+        throw error
+    }
+}
+
+pokemonService.store = async function (pokemon) {
+    try {
+        return await PokemonModel.create(pokemon);
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = pokemonService;

@@ -1,6 +1,6 @@
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
-function RegisterRequestValidator() {
+function registerRequest() {
     return [
         body('username')
             .notEmpty().withMessage('El campo username es requerido'),
@@ -12,4 +12,4 @@ function RegisterRequestValidator() {
     ]
 }
 
-module.exports = RegisterRequestValidator;
+module.exports = registerRequest;

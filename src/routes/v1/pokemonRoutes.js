@@ -1,9 +1,16 @@
 const Router = require('express').Router;
 const router = Router();
+const apicache = require("apicache");
 
 const pokemonController = require('../../controllers/pokemonController');
-const authenticateToken = require('../../middlewares/authenticateToken');
+const authenticateToken = require('../../middlewares/auth/authenticateToken');
+const paginate = require('../../middlewares/utilities/paginate');
+const checkErrors = require('../../middlewares/validation/checkErrors');
 const pokemonModel = require('../../models/pokemonModel');
+const storePokemonRequest = require('../../requests/pokemon/storePokemonRequest');
+const tryCatch = require('../../utilities/tryCatch');
+
+const cache = apicache.middleware;
 
 router.use(authenticateToken);
 
@@ -36,7 +43,10 @@ router.use(authenticateToken);
  *                   items: 
  *                     $ref: "#/components/schemas/Pokemon"
  */
-router.get('/', pokemonController.index);
+router.get('/',
+    cache("2 minutes"),
+    // paginate(pokemonModel),
+    tryCatch(pokemonController.index));
 
 /**
  * @openapi
@@ -77,7 +87,18 @@ router.get('/', pokemonController.index);
  * 
  * 
  */
-router.get('/:id', pokemonController.show);
+router.get('/:id',
+    cache("2 minutes"),
+    tryCatch(pokemonController.show));
+
+router.get('/:id/users',
+    cache("2 minutes"),
+    tryCatch(pokemonController.getUser));
+
+router.post('/',
+    storePokemonRequest(),
+    checkErrors,
+    tryCatch(pokemonController.store));
 
 router.delete('/', (req, res) => {
     pokemonModel.deleteMany({}, (err) => {
@@ -88,4 +109,5 @@ router.delete('/', (req, res) => {
         }
     });
 });
+
 module.exports = router;

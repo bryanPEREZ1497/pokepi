@@ -26,7 +26,11 @@ const userSchema = new moongose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    favoritePokemons: [{
+        type: moongose.Schema.Types.ObjectId,
+        ref: 'Pokemon'
+    }]
 }, {
     query: {
         byUsername(username) {

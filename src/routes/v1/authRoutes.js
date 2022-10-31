@@ -1,10 +1,14 @@
 const Router = require('express').Router;
-const router = Router();
 
 const AuthController = require('../../controllers/authController');
-const checkUsername = require('../../middlewares/checkUsername');
-const LoginRequestValidator = require('../../RequestValidators/Auth/LoginRequestValidator');
-const RegisterRequestValidator = require('../../RequestValidators/Auth/RegisterRequestValidator');
+const checkUserExist = require('../../middlewares/auth/checkUser');
+const loginRequest = require('../../requests/auth/loginRequest');
+const registerRequest = require('../../requests/auth/registerRequest');
+const tryCatch = require('../../utilities/tryCatch');
+const checkErrors = require('../../middlewares/validation/checkErrors');
+const authenticateToken = require('../../middlewares/auth/authenticateToken');
+
+const router = Router();
 
 /**
  * @openapi
@@ -44,8 +48,9 @@ const RegisterRequestValidator = require('../../RequestValidators/Auth/RegisterR
  *                   
  */
 router.post('/login',
-    LoginRequestValidator(),
-    AuthController.login);
+    loginRequest(),
+    checkErrors,
+    tryCatch(AuthController.login));
 
 /**
  * @openapi
@@ -69,7 +74,9 @@ router.post('/login',
  *                   items: 
  *                     type: object
  */
-router.get('/logout', AuthController.logout);
+router.get('/logout',
+    authenticateToken,
+    tryCatch(AuthController.logout));
 
 /**
  * @openapi
@@ -109,8 +116,9 @@ router.get('/logout', AuthController.logout);
  *                   
  */
 router.post('/register',
-    RegisterRequestValidator(),
-    checkUsername,
-    AuthController.register);
+    registerRequest(),
+    checkErrors,
+    checkUserExist,
+    tryCatch(AuthController.register));
 
 module.exports = router;

@@ -1,6 +1,6 @@
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
-function LoginRequestValidator() {
+function loginRequest() {
     return [
         body('username')
             .notEmpty().withMessage('El campo username es requerido'),
@@ -14,4 +14,4 @@ function LoginRequestValidator() {
     ]
 }
 
-module.exports = LoginRequestValidator;
+module.exports = loginRequest;

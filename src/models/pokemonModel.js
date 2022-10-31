@@ -64,6 +64,17 @@ const pokemonSchema = new moongose.Schema({
         required: true
     },
     stats: Object,
+    user: {
+        type: moongose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
+}, {
+    query: {
+        name(name) {
+            return this.where({ name: new RegExp(name, 'i') })
+        }
+    },
+    timestamps: true,
 });
 
 module.exports = moongose.model('Pokemon', pokemonSchema);
