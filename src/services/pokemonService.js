@@ -1,8 +1,6 @@
 const PokemonModel = require('../models/pokemonModel');
 
-const pokemonService = {};
-
-pokemonService.index = async function (search) {
+async function index(search) {
     try {
         return await PokemonModel.find({ name: new RegExp(search, 'i') });
     } catch (error) {
@@ -10,7 +8,7 @@ pokemonService.index = async function (search) {
     }
 };
 
-pokemonService.show = async function (attribute, value) {
+async function show(attribute, value) {
     try {
         return await PokemonModel.findOne({ [attribute]: value });
     } catch (error) {
@@ -18,7 +16,7 @@ pokemonService.show = async function (attribute, value) {
     }
 }
 
-pokemonService.getUser = async function (pokemonId) {
+async function getUser(pokemonId) {
     try {
         return await PokemonModel.findById(pokemonId)
             .populate('user').select('name user');
@@ -27,7 +25,7 @@ pokemonService.getUser = async function (pokemonId) {
     }
 }
 
-pokemonService.store = async function (pokemon) {
+async function store(pokemon) {
     try {
         return await PokemonModel.create(pokemon);
     } catch (error) {
@@ -35,4 +33,9 @@ pokemonService.store = async function (pokemon) {
     }
 }
 
-module.exports = pokemonService;
+module.exports = {
+    index,
+    show,
+    getUser,
+    store
+};

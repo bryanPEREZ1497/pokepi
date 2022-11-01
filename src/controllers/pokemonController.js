@@ -1,16 +1,11 @@
 const { defineAbilityFor } = require('../abilities/defineAbility');
-const pokemonModel = require('../models/pokemonModel');
-const UserModel = require('../models/userModel');
 const PokemonService = require('../services/pokemonService');
 const UserService = require('../services/userService');
-const { validationResult } = require('express-validator');
-const { CustomException } = require('../exceptions/CustomException');
 
-const pokemonController = {};
 
-pokemonController.index = async function (req, res, next) {
+async function index(req, res, next) {
     const pokemons = await PokemonService.index(req.query.search);
-    
+
     res.json({
         message: 'Success',
         data: pokemons
@@ -19,7 +14,7 @@ pokemonController.index = async function (req, res, next) {
     });
 };
 
-pokemonController.show = async function (req, res, next) {
+async function show(req, res, next) {
     const pokemon = await PokemonService.show('_id', req.params.id);
 
     res.status(201).json({
@@ -28,7 +23,7 @@ pokemonController.show = async function (req, res, next) {
     })
 }
 
-pokemonController.store = async function (req, res, next) {
+async function store(req, res, next) {
     const pokemon = await PokemonService.store(req.body);
 
     res.status(201).json({
@@ -37,7 +32,7 @@ pokemonController.store = async function (req, res, next) {
     });
 }
 
-pokemonController.getUser = async function (req, res, next) {
+async function getUser(req, res, next) {
     const user = await UserService.show('username', req.user.username);
     const pokemon = await PokemonService.getUser(req.params.id)
     const ability = defineAbilityFor(user);
@@ -52,4 +47,9 @@ pokemonController.getUser = async function (req, res, next) {
     })
 }
 
-module.exports = pokemonController;
+module.exports = {
+    index,
+    show,
+    store,
+    getUser
+};

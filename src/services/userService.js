@@ -1,8 +1,6 @@
 const UserModel = require('../models/userModel');
 
-const userService = {};
-
-userService.index = async function (search) {
+async function index(search) {
     try {
         return await UserModel.find({ name: new RegExp(search, 'i') });
     } catch (error) {
@@ -10,7 +8,7 @@ userService.index = async function (search) {
     }
 };
 
-userService.show = async function (attribute, value) {
+async function show(attribute, value) {
     try {
         return await UserModel.findOne({ [attribute]: value });
     } catch (error) {
@@ -18,7 +16,7 @@ userService.show = async function (attribute, value) {
     }
 }
 
-userService.store = async function (attributes) {
+async function store(attributes) {
     try {
         return await new UserModel({
             username: attributes.username,
@@ -29,4 +27,8 @@ userService.store = async function (attributes) {
     }
 }
 
-module.exports = userService;
+module.exports = {
+    index,
+    show,
+    store
+};

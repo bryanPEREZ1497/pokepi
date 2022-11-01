@@ -12,7 +12,7 @@ const tryCatch = require('../../utilities/tryCatch');
 
 const cache = apicache.middleware;
 
-router.use(authenticateToken);
+// router.use(authenticateToken);
 
 /**
  * @openapi

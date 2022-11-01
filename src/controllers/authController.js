@@ -4,9 +4,7 @@ const generateAccessToken = require("../utilities/generateAccessToken");
 const UserService = require("../services/userService");
 const saltRounds = 10;
 
-const authController = {}
-
-authController.login = async (req, res, next) => {
+async function login(req, res, next) {
     // try {
     const user = await UserService.show('username', req.body.username);
     if (!user) {
@@ -31,13 +29,13 @@ authController.login = async (req, res, next) => {
     // }
 };
 
-authController.logout = async (req, res) => {
+async function logout(req, res) {
 
     res.json({ message: 'logout', data: '' });
 
 };
 
-authController.register = async (req, res) => {
+async function register(req, res) {
     // try {
 
     const passwordHashed = await bcrypt.hash(req.body.password, saltRounds)
@@ -60,6 +58,10 @@ authController.register = async (req, res) => {
     // }
 }
 
-module.exports = authController;
+module.exports = {
+    login,
+    logout,
+    register
+};
 
 
