@@ -11,6 +11,11 @@ const db = moongose.connection;
 
 db.on('error', (error) => console.error(error));
 
-db.once('open', () => console.log('Connected to Database'));
+db.once('open', () => {
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('Connected to Database')
+    }
+
+});
 
 module.exports = db;

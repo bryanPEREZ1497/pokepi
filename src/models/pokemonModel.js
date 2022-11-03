@@ -64,10 +64,10 @@ const pokemonSchema = new moongose.Schema({
         required: true
     },
     stats: Object,
-    user: {
+    users: [{
         type: moongose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    }]
 }, {
     query: {
         name(name) {

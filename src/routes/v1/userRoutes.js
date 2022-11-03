@@ -2,12 +2,10 @@ const Router = require('express').Router;
 const router = Router();
 const apicache = require("apicache");
 
-const pokemonController = require('../../controllers/pokemonController');
+const userController = require('../../controllers/userController');
 const authenticateToken = require('../../middlewares/auth/authenticateToken');
 const paginate = require('../../middlewares/utilities/paginate');
 const checkErrors = require('../../middlewares/validation/checkErrors');
-const pokemonModel = require('../../models/pokemonModel');
-const storePokemonRequest = require('../../requests/pokemon/storePokemonRequest');
 const tryCatch = require('../../utilities/tryCatch');
 
 const cache = apicache.middleware;
@@ -43,10 +41,8 @@ router.use(authenticateToken);
  *                   items: 
  *                     $ref: "#/components/schemas/Pokemon"
  */
-router.get('/',
-    cache("2 minutes"),
-    // paginate(pokemonModel),
-    tryCatch(pokemonController.index));
+router.get('/pokemons/favorites',
+    tryCatch(userController.getPokemons));
 
 /**
  * @openapi
@@ -87,27 +83,10 @@ router.get('/',
  * 
  * 
  */
-router.get('/:id',
-    cache("2 minutes"),
-    tryCatch(pokemonController.show));
+router.patch('/pokemons/favorites/:id',
+    tryCatch(userController.addFavoritePokemon));
 
-router.get('/:id/users',
-    // cache("2 minutes"),
-    tryCatch(pokemonController.getUser));
-
-router.post('/',
-    storePokemonRequest(),
-    checkErrors,
-    tryCatch(pokemonController.store));
-
-router.delete('/', (req, res) => {
-    pokemonModel.deleteMany({}, (err) => {
-        if (err) {
-            res.status(500).json({ message: 'Error deleting all pokemon' });
-        } else {
-            res.status(200).json({ message: 'All pokemon deleted' });
-        }
-    });
-});
+router.delete('/pokemons/favorites/:id',
+    tryCatch(userController.deleteFavoritePokemon));
 
 module.exports = router;

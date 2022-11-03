@@ -33,9 +33,18 @@ async function store(pokemon) {
     }
 }
 
+async function deleteAll() {
+    try {
+        return await PokemonModel.deleteMany();
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     index,
     show,
     getUser,
-    store
+    store,
+    deleteAll
 };
