@@ -5,7 +5,6 @@ const UserService = require("../services/userService");
 const saltRounds = 10;
 
 async function login(req, res, next) {
-    // try {
     const user = await UserService.show('username', req.body.username);
     if (!user) {
         throw new Error('Usuario no existe');
@@ -21,12 +20,6 @@ async function login(req, res, next) {
         data: user,
         token
     });
-    // } catch (error) {
-    //     res.status(401).json({
-    //         message: error.message,
-    //         data: ''
-    //     });
-    // }
 };
 
 async function logout(req, res) {
@@ -36,8 +29,6 @@ async function logout(req, res) {
 };
 
 async function register(req, res) {
-    // try {
-
     const passwordHashed = await bcrypt.hash(req.body.password, saltRounds)
 
     const user = await UserService.store({ username: req.body.username, password: passwordHashed });
@@ -49,13 +40,6 @@ async function register(req, res) {
         data: user,
         token
     });
-
-    // } catch (error) {
-    //     res.status(400).json({
-    //         message: error.message,
-    //         data: ''
-    //     });
-    // }
 }
 
 module.exports = {

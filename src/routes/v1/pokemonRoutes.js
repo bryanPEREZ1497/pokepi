@@ -45,7 +45,6 @@ router.use(authenticateToken);
  */
 router.get('/',
     cache("2 minutes"),
-    // paginate(pokemonModel),
     tryCatch(pokemonController.index));
 
 /**

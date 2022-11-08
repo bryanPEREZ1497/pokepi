@@ -1,4 +1,3 @@
-const { defineAbilityFor } = require('../abilities/defineAbility');
 const PokemonService = require('../services/pokemonService');
 const UserService = require('../services/userService');
 
@@ -33,13 +32,7 @@ async function store(req, res, next) {
 }
 
 async function getUser(req, res, next) {
-    const user = await UserService.show('username', req.user.username);
     const pokemon = await PokemonService.getUser(req.params.id)
-    const ability = defineAbilityFor(user);
-
-    if (ability.cannot('read', pokemon)) {
-        throw new Error('You are not allowed to do this');
-    }
 
     res.status(201).json({
         message: 'Success',
