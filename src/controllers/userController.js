@@ -63,13 +63,23 @@ async function show(req, res) {
 };
 
 async function store(req, res) {
-    const passwordHashed = await bcrypt.hash(req.body.password, saltRounds)
-    const user = await UserService.store({ ...req.body, passwordHashed });
+    //find a user with the same cedula
+    const user = await UserService.show('cedula', req.body.cedula);
+    if (user) {
+        res.status(400).json({
+            message: 'Cédula ya existe',
+            data: user
+        });
+    } else {
 
-    res.json({
-        message: 'Success',
-        data: user
-    });
+        const passwordHashed = await bcrypt.hash(req.body.password, saltRounds)
+        const user = await UserService.store({ ...req.body, passwordHashed });
+
+        res.json({
+            message: 'Success',
+            data: user
+        });
+    }
 
 };
 
