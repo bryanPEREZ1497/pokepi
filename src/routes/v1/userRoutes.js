@@ -10,7 +10,28 @@ const tryCatch = require('../../utilities/tryCatch');
 
 const cache = apicache.middleware;
 
-router.use(authenticateToken);
+// router.use(authenticateToken);
+
+router.get('/',
+    tryCatch(userController.index));
+
+router.get('/:id',
+    tryCatch(userController.show));
+
+router.post('/',
+    tryCatch(userController.store));
+
+router.put('/:id',
+    tryCatch(userController.update));
+
+router.delete('/deleteAll',
+    tryCatch(userController.destroyAll));
+router.delete('/:id',
+    tryCatch(userController.destroy));
+
+
+
+
 
 /**
  * @openapi

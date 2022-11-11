@@ -116,8 +116,8 @@ router.get('/logout',
  *                   
  */
 router.post('/register',
-    registerRequest(),
-    checkErrors,
+    // registerRequest(),
+    // checkErrors,
     checkUserExist,
     tryCatch(AuthController.register));
 

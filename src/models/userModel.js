@@ -20,13 +20,50 @@ const moongose = require('mongoose');
 const userSchema = new moongose.Schema({
     username: {
         type: String,
-        required: true,
+        // required: true,
         unique: true
     },
     password: {
         type: String,
-        required: true
+        // required: true
     },
+    role: {
+        type: String,
+    },
+    cedula: {
+        type: String,
+    },
+    names: {
+        type: String,
+    },
+    lastnames: {
+        type: String,
+    },
+    email: {
+        type: String,
+    },
+    isVaccinated: {
+        type: Boolean,
+    },
+    birthdate: {
+        type: Date,
+    },
+    address: {
+        type: String,
+    },
+    phone: {
+        type: String,
+    },
+    vaccineDate: {
+        type: Date,
+    },
+    doseNumber: {
+        type: Number,
+    },
+    vaccineType: {
+        type: String,
+    },
+
     favoritePokemons: [{
         type: moongose.Schema.Types.ObjectId,
         ref: 'Pokemon'
@@ -48,8 +85,11 @@ const userSchema = new moongose.Schema({
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
-        // returnedObject.id = returnedObject._id;
-        // delete returnedObject.password;
+        returnedObject.id = returnedObject._id;
+        delete returnedObject.password;
+        delete returnedObject._id;
+        delete returnedObject.__v;
+
     }
 });
 

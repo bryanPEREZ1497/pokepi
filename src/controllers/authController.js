@@ -31,7 +31,7 @@ async function logout(req, res) {
 async function register(req, res) {
     const passwordHashed = await bcrypt.hash(req.body.password, saltRounds)
 
-    const user = await UserService.store({ username: req.body.username, password: passwordHashed });
+    const user = await UserService.store({...req.body, passwordHashed});
 
     const token = generateAccessToken({ username: user.username });
 
